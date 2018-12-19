@@ -2,13 +2,48 @@ var express = require('express');
 var path = require('path');
 var app = express();
 
-// Define the port to run on
-app.set('port', process.env.PORT || 3000);
+var server = require("http").Server(app)
 
-app.use(express.static(path.join(__dirname, 'public')));
+var io = require("socket.io")
+app.use(express.static("/public"))
+app.get("/", function (req, res) {
+  res.redirect("index.html")
+})
 
-// Listen for requests
-var server = app.listen(app.get('port'), function() {
-  var port = server.address().port;
-  console.log('Magic happens on port ' + port);
-});
+server.listen(3000)
+var matrix = require("./Modules/matrix")
+console.log(matrix)
+
+io.on('connection', function (socket) {
+  setInterval(function () {
+    for (var y = 0; y < matrix.length; y++) {
+      for (var x = 0; x < matrix[y].length; x++) {
+        if (matrix[y][x].index == 1) {
+          matrix[y][x].mul();
+        }
+        if (matrix[y][x].index == 2) {
+          matrix[y][x].eat();
+        }
+        if (matrix[y][x].index == 3) {
+          matrix[y][x].eat();
+        }
+        if (matrix[y][x].index == 4) {
+          matrix[y][x].spawnGrass();
+        }
+        if (matrix[y][x].index == 5) {
+          console.log(matrix[y][x]);
+          matrix[y][x].eat();
+        }
+      }
+    }
+    socket.emit("first matrix", matrix)
+  },time)
+})
+
+var frameCount = 5
+
+function frameRate(fc){
+  return 1000/fc
+}
+
+var time = frameRate(frameCount)
