@@ -16,12 +16,14 @@ module.exports = class LivingCreature {
        ];
  
     }
-    chooseCell(ch) {
+    chooseCell(ch,matrix) {
         var found = [];
         for (var i in this.directions) {
             var x = this.directions[i][0];
             var y = this.directions[i][1];
+            
             if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length){
+                console.log(matrix[0].length);
                 if (matrix[y][x] == ch) {
                     found.push(this.directions[i]);
                 }
@@ -33,3 +35,4 @@ module.exports = class LivingCreature {
         return found;
     }
 }
+

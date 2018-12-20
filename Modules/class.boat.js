@@ -18,7 +18,7 @@ module.exports = class Navak {
             [this.x, this.y - 2]
         ];
     }
-    chooseCell(num) {
+    chooseCell(num,matrix) {
         this.getNewCoordinates();
         var found = [];
         for (var i in this.directions) {
@@ -35,8 +35,8 @@ module.exports = class Navak {
         }
         return found;
     }
-    move() {
-        var newCell = random(this.chooseCell(0));
+    move(matrix) {
+        var newCell = random(this.chooseCell(0,matrix));
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -49,12 +49,12 @@ module.exports = class Navak {
             }
             this.energy--;
             if (this.energy <= 0) {
-                this.die()
+                this.die(matrix)
             }
         }
     }
-    eat() {
-        var newCell = random(this.chooseCell(1));
+    eat(matrix) {
+        var newCell = random(this.chooseCell(1,matrix));
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -67,14 +67,14 @@ module.exports = class Navak {
                 this.acted = true;
 
                 if (this.energy >= 9) {
-                    this.mul()
+                    this.mul(matrix)
                     this.energy = 4
                 }
             } else {
-                this.move()
+                this.move(matrix)
             }
         }
-        var newCell = random(this.chooseCell(2));
+        var newCell = random(this.chooseCell(2,matrix));
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -87,12 +87,12 @@ module.exports = class Navak {
                 this.acted = true;
 
                 if (this.energy >= 9) {
-                    this.mul()
+                    this.mul(matrix)
                     this.energy = 4
                 }
             }
         }
-        var newCell = random(this.chooseCell(3));
+        var newCell = random(this.chooseCell(3,matrix));
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -105,15 +105,15 @@ module.exports = class Navak {
                 this.acted = true;
 
                 if (this.energy >= 9) {
-                    this.mul()
+                    this.mul(matrix)
                     this.energy = 4
                 }
             }
 
         }
     }
-    mul() {
-        var newCell = random(this.chooseCell(0));
+    mul(matrix) {
+        var newCell = random(this.chooseCell(0,matrix));
 
         if (newCell) {
             var newX = newCell[0]
@@ -121,7 +121,12 @@ module.exports = class Navak {
             matrix[newY][newX] = new Navak(newX, newY, 5)
         }
     }
-    die() {
+    die(matrix) {
         matrix[this.y][this.x] = 0
     }
+}
+function random(arr){
+
+    var random = Math.floor(Math.random() * arr.length);
+    return arr[random];
 }

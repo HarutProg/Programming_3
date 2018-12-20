@@ -4,7 +4,6 @@ var m = 10;
 var side = 10
 var socket = io()
 {
-framerate(0)
 socket.on('getNewMatrix',function(mtx){
     matrix=mtx
     console.log(matrix)

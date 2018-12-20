@@ -34,8 +34,8 @@ module.exports = class spawner {
             [this.x + 2, this.y + 2]
         ];
     }
-    chooseCell(num) {
-        this.getNewCoordinates();
+    chooseCell(num,matrix) {
+        this.getNewCoordinates(matrix);
         var found = [];
         for (var i in this.directions) {
             var x = this.directions[i][0];
@@ -51,9 +51,9 @@ module.exports = class spawner {
         }
         return found;
     }
-    spawnKiller() {
+    spawnKiller(matrix) {
         if (this.energy == 70) {
-            var newCell = random(this.chooseCell(0));
+            var newCell = random(this.chooseCell(0,matrix));
 
             if (newCell) {
                 var newX = newCell[0]
@@ -64,9 +64,9 @@ module.exports = class spawner {
             }
         }
     }
-    spawnGrassEater() {
+    spawnGrassEater(matrix) {
         if (this.energy == 55) {
-            var newCell = random(this.chooseCell(0));
+            var newCell = random(this.chooseCell(0,matrix));
 
             if (newCell) {
                 var newX = newCell[0]
@@ -74,12 +74,12 @@ module.exports = class spawner {
                 matrix[newY][newX] = new GrassEater(newX, newY, 2);
             }
         }
-        this.spawnKiller()
+        this.spawnKiller(matrix)
     }
-    spawnGrass() {
+    spawnGrass(matrix) {
         this.energy++;
         if (this.energy == 50) {
-            var newCell = random(this.chooseCell(0));
+            var newCell = random(this.chooseCell(0,matrix));
 
             if (newCell) {
                 var newX = newCell[0]
@@ -87,6 +87,11 @@ module.exports = class spawner {
                 matrix[newY][newX] = new Grass(newX, newY, 1);
             }
         }
-        this.spawnGrassEater()
+        this.spawnGrassEater(matrix)
     }
+}
+function random(arr){
+
+    var random = Math.floor(Math.random() * arr.length);
+    return arr[random];
 }

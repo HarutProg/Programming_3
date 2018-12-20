@@ -34,8 +34,8 @@ module.exports = class Killer {
             [this.x + 2, this.y + 2]
         ];
     }
-    chooseCell(num) {
-        this.getNewCoordinates();
+    chooseCell(num,matrix) {
+        this.getNewCoordinates(matrix);
         var found = [];
         for (var i in this.directions) {
             var x = this.directions[i][0];
@@ -51,8 +51,8 @@ module.exports = class Killer {
         }
         return found;
     }
-    move() {
-        var newCell = random(this.chooseCell(0));
+    move(matrix) {
+        var newCell = random(this.chooseCell(0,matrix));
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -65,15 +65,15 @@ module.exports = class Killer {
             }
             this.energy--;
             if (this.energy <= 0) {
-                this.die()
+                this.die(matrix)
             }
         }
     }
-    die() {
+    die(matrix) {
         matrix[this.y][this.x] = 0
     }
-    eat() {
-        var newCell = random(this.chooseCell(2));
+    eat(matrix) {
+        var newCell = random(this.chooseCell(2,matrix));
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -86,17 +86,17 @@ module.exports = class Killer {
                 this.acted = true;
 
                 if (this.energy >= 12) {
-                    this.mul()
+                    this.mul(matrix)
                     this.energy = 4
                 }
             } else {
-                this.move()
+                this.move(matrix)
             }
         }
 
     }
-    mul() {
-        var newCell = random(this.chooseCell(0));
+    mul(matrix) {
+        var newCell = random(this.chooseCell(0,matrix));
 
         if (newCell) {
             var newX = newCell[0]
@@ -104,4 +104,10 @@ module.exports = class Killer {
             matrix[newY][newX] = new Killer(newX, newY, 3)
         }
     }
+}
+
+function random(arr){
+
+    var random = Math.floor(Math.random() * arr.length);
+    return arr[random];
 }
