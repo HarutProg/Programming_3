@@ -3,7 +3,9 @@ var n = 10;
 var m = 10;
 var side = 10
 var socket = io()
-{
+function setup(){
+frameRate(0)
+background('#acacac')
 socket.on('getNewMatrix',function(mtx){
     matrix=mtx
     console.log(matrix)
@@ -13,6 +15,7 @@ socket.on('getNewMatrix',function(mtx){
         redraw()
     })
 })
+
 noLoop()
 }
 
@@ -20,25 +23,35 @@ function draw() {
 
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x].index == 1) {
-                matrix[y][x].mul();
+            var obj = matrix[y][x];
+            if (obj.index == 1) {
+                fill("green");
+                rect(x * side, y * side, side, side);
             }
-            if (matrix[y][x].index == 2) {
-                matrix[y][x].eat();
+            else if (obj.index == 2) {
+                fill("yellow");
+                rect(x * side, y * side, side, side);
+                // matrix[y][x].acted = false;
             }
-            if (matrix[y][x].index == 3) {
-                matrix[y][x].eat();
+            else if (obj.index == 3) {
+                fill("red");
+                rect(x * side, y * side, side, side);
+                // matrix[y][x].acted = false;
             }
-            if (matrix[y][x].index == 4) {
-                matrix[y][x].spawnGrass();
+            else if (obj.index == 0) {
+                fill("#acacac");
+                rect(x * side, y * side, side, side);
             }
-            if (matrix[y][x].index == 5) {
-                matrix[y][x];
-                matrix[y][x].eat();
-                
+            else if (obj.index == 4) {
+                fill("#4A235A");
+                rect(x * side, y * side, side, side);
+            }
+            else if (obj.index == 5) {
+                fill("blue");
+                rect(x * side, y * side, side, side);
             }
         }
-    } 
+    }
 }
 
 

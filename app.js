@@ -4,15 +4,12 @@ var app = express();
 var server = require('http').Server(app);
 
 var io = require('socket.io')(server);
-var messages = [];
 
 app.use(express.static("./public"));
 app.get('/', function (req, res) {
    res.redirect('index.html');
 });
 server.listen(3000);
-
-
 
 var matrix = require("./Modules/matrix")
 console.log(matrix)
@@ -35,7 +32,6 @@ io.on('connection', function (socket) {
           matrix[y][x].spawnGrass(matrix);
         }
         if (matrix[y][x].index == 5) {
-          console.log(matrix[y][x]);
           matrix[y][x].eat(matrix);
         }
       }

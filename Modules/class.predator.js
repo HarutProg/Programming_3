@@ -109,5 +109,5 @@ module.exports = class Killer {
 function random(arr){
 
     var random = Math.floor(Math.random() * arr.length);
-    return arr[random];
+     return arr[random];
 }
