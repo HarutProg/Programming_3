@@ -38,4 +38,4 @@ var n = m = 80
         var random = Math.floor(Math.random() * arr.length);
         return arr[random];
     }
-module.exports = matrix
+// module.exports = matrix

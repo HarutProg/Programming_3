@@ -8,9 +8,9 @@ function random(arr) {
 
 module.exports = class Grass extends LivingCreature {
 
-    mul(matrix) {
+    mul() {
         this.multiply++;
-        var newCell = random(this.chooseCell(0, matrix));
+        var newCell = random(this.chooseCell(0));
 
         if (newCell && this.multiply >= 3) {
             var newX = newCell[0];

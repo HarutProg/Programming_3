@@ -18,7 +18,7 @@ module.exports = class Navak {
             [this.x, this.y - 2]
         ];
     }
-    chooseCell(num,matrix) {
+    chooseCell(num) {
         this.getNewCoordinates();
         var found = [];
         for (var i in this.directions) {
@@ -36,7 +36,7 @@ module.exports = class Navak {
         return found;
     }
     move(matrix) {
-        var newCell = random(this.chooseCell(0,matrix));
+        var newCell = random(this.chooseCell(0));
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -54,7 +54,7 @@ module.exports = class Navak {
         }
     }
     eat(matrix) {
-        var newCell = random(this.chooseCell(1,matrix));
+        var newCell = random(this.chooseCell(1));
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -67,14 +67,14 @@ module.exports = class Navak {
                 this.acted = true;
 
                 if (this.energy >= 9) {
-                    this.mul(matrix)
+                    this.mul()
                     this.energy = 4
                 }
             } else {
                 this.move(matrix)
             }
         }
-        var newCell = random(this.chooseCell(2,matrix));
+        var newCell = random(this.chooseCell(2));
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -87,12 +87,12 @@ module.exports = class Navak {
                 this.acted = true;
 
                 if (this.energy >= 9) {
-                    this.mul(matrix)
+                    this.mul()
                     this.energy = 4
                 }
             }
         }
-        var newCell = random(this.chooseCell(3,matrix));
+        var newCell = random(this.chooseCell(3));
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -105,15 +105,15 @@ module.exports = class Navak {
                 this.acted = true;
 
                 if (this.energy >= 9) {
-                    this.mul(matrix)
+                    this.mul()
                     this.energy = 4
                 }
             }
 
         }
     }
-    mul(matrix) {
-        var newCell = random(this.chooseCell(0,matrix));
+    mul() {
+        var newCell = random(this.chooseCell(0));
 
         if (newCell) {
             var newX = newCell[0]

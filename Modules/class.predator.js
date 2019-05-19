@@ -34,8 +34,8 @@ module.exports = class Killer {
             [this.x + 2, this.y + 2]
         ];
     }
-    chooseCell(num,matrix) {
-        this.getNewCoordinates(matrix);
+    chooseCell(num) {
+        this.getNewCoordinates();
         var found = [];
         for (var i in this.directions) {
             var x = this.directions[i][0];
@@ -51,8 +51,8 @@ module.exports = class Killer {
         }
         return found;
     }
-    move(matrix) {
-        var newCell = random(this.chooseCell(0,matrix));
+    move() {
+        var newCell = random(this.chooseCell(0));
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -65,15 +65,15 @@ module.exports = class Killer {
             }
             this.energy--;
             if (this.energy <= 0) {
-                this.die(matrix)
+                this.die()
             }
         }
     }
-    die(matrix) {
+    die() {
         matrix[this.y][this.x] = 0
     }
-    eat(matrix) {
-        var newCell = random(this.chooseCell(2,matrix));
+    eat() {
+        var newCell = random(this.chooseCell(2));
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -90,13 +90,13 @@ module.exports = class Killer {
                     this.energy = 4
                 }
             } else {
-                this.move(matrix)
+                this.move()
             }
         }
 
     }
-    mul(matrix) {
-        var newCell = random(this.chooseCell(0,matrix));
+    mul() {
+        var newCell = random(this.chooseCell(0));
 
         if (newCell) {
             var newX = newCell[0]
